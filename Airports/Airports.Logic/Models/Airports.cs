@@ -1,25 +1,26 @@
-﻿using System;
+﻿using Airports.Logic.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airports.Console.Models
+namespace Airports.Logic.Models
 {
-    public class Airports : IEnumerable
+    public class Airports : IEnumerable, IEnumerable<Airport>
     {
         List<Airport> airports;
-        List<City> cities;
-        List<Country> countries;
-        List<Location> locations;
+        Cities cities;
+        Countries countries;
+        Locations locations;
 
         public Airports()
         {
             airports = new List<Airport>();
-            cities = new List<City>();
-            countries = new List<Country>();
-            locations = new List<Location>();
+            locations = new Locations();
+            countries = new Countries();
+            cities = new Cities(countries);
         }
 
         public void Add(string[] data)
@@ -37,10 +38,12 @@ namespace Airports.Console.Models
 
         public void Add(int id, string name, string cityName, string countryName, string iata, string icao, double longitude, double latitude, double altitude)
         {
-            var city = GetOrAddCity(cityName, countryName);
+            var city = cities.GetOrAdd(cityName, countryName);
             var airport = airports.SingleOrDefault(a => a.Name == name);
             if (airport == null)
             {
+                var location = locations.GetOrAdd(longitude, latitude, altitude);
+
                 airport = new Airport
                 {
                     Id = id,
@@ -52,12 +55,7 @@ namespace Airports.Console.Models
                     ICAOCode = icao,
                     City = city,
                     Country = city.Country,
-                    Location = new Location
-                    {
-                        Longitude = longitude,
-                        Latitude = latitude,
-                        Altitude = altitude
-                    }
+                    Location = location
                     // TODO: TimeZoneName
                 };
 
@@ -65,50 +63,14 @@ namespace Airports.Console.Models
             }
         }
 
-        City GetOrAddCity(string cityName, string countryName)
-        {
-            var country = GetOrAddCountry(countryName);
-            var city = cities.SingleOrDefault(c => c.Name == cityName && c.CountryId == country.Id);
-            if (city == null)
-            {
-                var maxId = cities.Count > 0 ? cities.Max(c => c.Id) : 0;
-                city = new City
-                {
-                    Id = maxId + 1,
-                    Name = cityName,
-                    CountryId = country.Id,
-                    Country = country,
-                    // TODO: TimeZoneName
-                };
-
-                cities.Add(city);
-            }
-
-            return city;
-        }
-
-        Country GetOrAddCountry(string countryName)
-        {
-            var country = countries.SingleOrDefault(c => c.Name == countryName);
-            if (country == null)
-            {
-                var maxId = countries.Count > 0 ? countries.Max(c => c.Id) : 0;
-                country = new Country
-                {
-                    Id = maxId + 1,
-                    Name = countryName
-                    // TODO: 2, 3 letter ISO code
-                };
-
-                countries.Add(country);
-            }
-
-            return country;
-        }
-
         public IEnumerator GetEnumerator()
         {
             return new AirportsEnumerator(airports);
+        }
+
+        IEnumerator<Airport> IEnumerable<Airport>.GetEnumerator()
+        {
+            return airports.GetEnumerator();
         }
     }
 

@@ -1,35 +1,25 @@
-﻿using Airports.Console.Models;
-using Airports.Console.Services;
+﻿using Airports.Logic.Services;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using AirportList = Airports.Console.Models.Airports;
+using AirportList = Airports.Logic.Models.Airports;
 
-namespace Airports.Console
+namespace Airports.Logic
 {
     public class DataReader
     {
         readonly Logger logger;
 
         const string RegExp = "^[0-9]{1,4},(\".*\",){3}(\"[A-Za-z]+\",){2}([-0-9]{1,4}(\\.[0-9]{0,})?,){2}";
-        const string DataPath = @"../../../Data/airports.dat";
+        const string DataPath = @"../../../../Airports.Logic/Data/airports.dat";
 
         public DataReader()
         {
             logger = LogManager.GetCurrentClassLogger();
         }
 
-        public void LoadAirports()
-        {
-            ReadData();
-        }
-
-        AirportList ReadData()
+        public AirportList LoadAirports()
         {
             AirportList airports = new AirportList();
             var path = Path.Combine(Environment.CurrentDirectory, DataPath);

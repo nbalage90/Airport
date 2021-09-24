@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airports.Console.Models
+namespace Airports.Logic.Models
 {
     public class City
     {

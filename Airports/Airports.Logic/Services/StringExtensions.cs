@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Airports.Console.Services
+namespace Airports.Logic.Services
 {
     public static class StringExtensions
     {
@@ -20,6 +17,7 @@ namespace Airports.Console.Services
                 if (c == '"')
                 {
                     closedString = !closedString;
+                    continue;
                 }
 
                 if (c == separator && closedString)
