@@ -14,9 +14,13 @@ namespace Airports.Console
             var reader = new DataReader();
             var airports = reader.LoadAirports();
 
-            GetCountriesAndAirportNumbers(airports);
-            GetCityWithTheMostAirports(airports);
-            CountriesAndAirports(airports);
+            var airlines = CsvHelper.Parse<Airline>("airlines.dat");
+            var flights = CsvHelper.Parse<Flight>("flights.dat");
+            var segments = CsvHelper.Parse<Segment>("segments.dat");
+
+            //GetCountriesAndAirportNumbers(airports);
+            //GetCityWithTheMostAirports(airports);
+            //CountriesAndAirports(airports);
         }
 
         static void WriteLines()

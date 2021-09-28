@@ -1,4 +1,5 @@
-﻿using Airports.Logic.Services;
+﻿using Airports.Logic.Entities;
+using Airports.Logic.Services;
 using NLog;
 using System;
 using System.IO;
@@ -12,7 +13,6 @@ namespace Airports.Logic
         readonly Logger logger;
 
         const string RegExp = "^[0-9]{1,4},(\".*\",){3}(\"[A-Za-z]+\",){2}([-0-9]{1,4}(\\.[0-9]{0,})?,){2}";
-        const string DataPath = @"../../../../Airports.Logic/Data/airports.dat";
 
         public DataReader()
         {
@@ -22,7 +22,7 @@ namespace Airports.Logic
         public AirportList LoadAirports()
         {
             AirportList airports = new AirportList();
-            var path = Path.Combine(Environment.CurrentDirectory, DataPath);
+            var path = Path.Combine(Environment.CurrentDirectory, AirportsConstants.DataFolder + "airports.dat");
 
             using (StreamReader sr = File.OpenText(path))
             {
