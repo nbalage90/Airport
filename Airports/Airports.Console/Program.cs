@@ -1,7 +1,7 @@
 ﻿using Airports.Logic;
 using Airports.Logic.Models;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using AirportList = Airports.Logic.Models.Airports;
 
@@ -12,11 +12,15 @@ namespace Airports.Console
         static void Main(string[] args)
         {
             var reader = new DataReader();
-            var airports = reader.LoadAirports();
+            //var airports = reader.LoadAirports();
 
+            var locations = CsvHelper.Parse<Location>("airports.dat");
+            var countries = CsvHelper.Parse<Country>("airports.dat");
+            var cities = CsvHelper.Parse<City>("airports.dat");
+            var airports = CsvHelper.Parse<Airport>("airports.dat");
             var airlines = CsvHelper.Parse<Airline>("airlines.dat");
-            var flights = CsvHelper.Parse<Flight>("flights.dat");
             var segments = CsvHelper.Parse<Segment>("segments.dat");
+            var flights = CsvHelper.Parse<Flight>("flights.dat");
 
             //GetCountriesAndAirportNumbers(airports);
             //GetCityWithTheMostAirports(airports);

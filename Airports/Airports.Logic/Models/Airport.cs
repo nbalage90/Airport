@@ -1,7 +1,11 @@
-﻿namespace Airports.Logic.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Airports.Logic.Models
 {
-    public class Airport
+    public class Airport : IEquatable<Airport>
     {
+        [Column("airportId")]
         public int Id { get; set; }
         public string Name { get; set; }
         public string FullName { get; set; }
@@ -13,5 +17,15 @@
         public City City { get; set; }
         public Country Country { get; set; }
         public Location Location { get; set; }
+
+        public bool Equals(Airport other)
+        {
+            return other.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
     }
 }

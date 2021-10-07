@@ -2,7 +2,7 @@
 
 namespace Airports.Logic.Models
 {
-    public class Flight
+    public class Flight : IEquatable<Flight>
     {
         public int Id { get; set; }
         public TimeSpan ArrivalTime { get; set; }
@@ -10,5 +10,15 @@ namespace Airports.Logic.Models
         public string Number { get; set; }
         public int SegmentId { get; set; }
         public Segment Segment { get; set; }
+
+        public bool Equals(Flight other)
+        {
+            return other.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
     }
 }
