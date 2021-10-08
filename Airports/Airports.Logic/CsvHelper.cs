@@ -173,11 +173,11 @@ namespace Airports.Logic
                 IEnumerable<object> airportObjs = null;
                 Dictionary.TryGetValue(typeof(Airport), out airportObjs);
                 var airports = Enumerable.Cast<Airport>(airportObjs);
-                var departureAirport = airports.SingleOrDefault(a => a.Id == double.Parse(columnArr["departureAriport"]));
-                var arrivalAirport = airports.SingleOrDefault(a => a.Id == double.Parse(columnArr["arrivalAriport"]));
+                var departureAirport = airports.SingleOrDefault(a => a.Id == double.Parse(columnArr["departureAirportId"]));
+                var arrivalAirport = airports.SingleOrDefault(a => a.Id == double.Parse(columnArr["arrivalAirportId"]));
                 IEnumerable<object> airlineObjs = null;
                 Dictionary.TryGetValue(typeof(Airline), out airlineObjs);
-                var airline = Enumerable.Cast<Airline>(airlineObjs).SingleOrDefault(a => a.Id == int.Parse(columnArr["airline"]));
+                var airline = Enumerable.Cast<Airline>(airlineObjs).SingleOrDefault(a => a.Id == int.Parse(columnArr["airlineId"]));
                 (instance as Segment).ArrivalAirport = arrivalAirport;
                 (instance as Segment).ArrivalAirportId = arrivalAirport.Id;
                 (instance as Segment).DepartureAirport = departureAirport;

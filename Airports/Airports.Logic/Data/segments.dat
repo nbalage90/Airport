@@ -1,4 +1,4 @@
-id,airline,departureAirport,arrivalAirport
+id,airlineId,departureAirportId,arrivalAirportId
 0,1,1,1055
 1,1,1,1075
 2,1,1,1230

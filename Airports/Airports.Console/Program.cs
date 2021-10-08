@@ -18,6 +18,8 @@ namespace Airports.Console
             var segments = CsvHelper.Parse<Segment>("segments.dat");
             var flights = CsvHelper.Parse<Flight>("flights.dat");
 
+            JsonHelper.ReadTimeZones(airports);
+
             //GetCountriesAndAirportNumbers(airports);
             //GetCityWithTheMostAirports(airports);
             //CountriesAndAirports(airports);
