@@ -34,6 +34,7 @@ namespace Airports.Logic
             List<T> valueList = new List<T>();
 
             int i = 0;
+            Console.WriteLine($"{typeof(T)}: {i}");
 
             using (var reader = new StreamReader(path))
             {

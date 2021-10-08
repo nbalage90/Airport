@@ -3,7 +3,6 @@ using Airports.Logic.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using AirportList = Airports.Logic.Models.Airports;
 
 namespace Airports.Console
 {
@@ -11,9 +10,6 @@ namespace Airports.Console
     {
         static void Main(string[] args)
         {
-            var reader = new DataReader();
-            //var airports = reader.LoadAirports();
-
             var locations = CsvHelper.Parse<Location>("airports.dat");
             var countries = CsvHelper.Parse<Country>("airports.dat");
             var cities = CsvHelper.Parse<City>("airports.dat");
@@ -33,7 +29,7 @@ namespace Airports.Console
             System.Console.WriteLine("----------");
         }
 
-        static void GetCountriesAndAirportNumbers(AirportList airports)
+        static void GetCountriesAndAirportNumbers(IEnumerable<Airport> airports)
         {
             WriteLines();
             System.Console.WriteLine("List all the countries by name in an ascending order, and display the number of airports they have");
@@ -44,7 +40,7 @@ namespace Airports.Console
             }
         }
 
-        static void GetCityWithTheMostAirports(AirportList airports)
+        static void GetCityWithTheMostAirports(IEnumerable<Airport> airports)
         {
             WriteLines();
             System.Console.WriteLine("Find the city which has got the most airports. If there are more than one cities with the same amount, display all of them.");
@@ -72,7 +68,7 @@ namespace Airports.Console
             }
         }
 
-        static void CountriesAndAirports(AirportList airports)
+        static void CountriesAndAirports(IEnumerable<Airport> airports)
         {
             WriteLines();
             System.Console.WriteLine("List all the countries by name in an descending order, and display the name of their airports.");
